@@ -1,0 +1,58 @@
+#welcome-section {
+    background-image: url('home/welcome/welcome-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+#right {
+    width: 48%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+}
+
+#right h1{
+    font-size: 4rem;
+    font-style: italic;
+}
+
+#right p{
+    font-size: 1.5rem;
+}
+
+#right button{
+    font-size: 1.5rem;
+    background-color: #141e37;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
+}
+
+#right button:hover{
+    background-color: white;
+    color: #141e37;
+}
+
+#left {
+    width: 48%;
+}
+
+#left iframe{
+    width: 90%;
+    height: 45vh;
+    border: none;
+    border-radius: 5px;
+}
