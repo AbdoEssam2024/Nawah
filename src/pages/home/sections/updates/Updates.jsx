@@ -1,34 +1,124 @@
-import { updatesData } from "./updates_data"
-import "./updates.css"
+import { useEffect, useState } from "react";
+import { updatesData } from "./updates_data";
+import { Avatar, Box, Container, Typography, Grid } from "@mui/material";
+import NearMeIcon from "@mui/icons-material/NearMe";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import "./updates.css";
+
 export default function Updates() {
+    const [index, setIndex] = useState(null);
+    useEffect(() => {
+        window.addEventListener('load', () => {
+            window.innerWidth < 900 ? setIndex(0) : setIndex(null);
+        })
+        window.addEventListener('resize', () => {
+            window.innerWidth < 900 ? setIndex(0) : setIndex(null);
+        })
+    }, [index]);
+
+    function increament() {
+        if (index < updatesData.length - 1) setIndex(index + 1);
+    }
+    function decrement() {
+        if (index > 0) setIndex(index - 1);
+    }
     return (
-        <div id="update-section">
-            <div id="section-header">
-                <h1>اخر المستجدات</h1>
-                <h3>انتقل لصفحة المستجدات
-                    <span><img src="home/last_update/updates_icon.png" alt="Updates Icon" style={{ width: "30px" }} /></span>
-                </h3>
-            </div>
-            <div id="updates">
-                {
-                    updatesData.map((update) => (
-                        UpdateCard(update)
-                    ))
-                }
-            </div>
-        </div>
-    )
+        <Container maxWidth="2xl" id="update-section">
+            <Box id="section-header">
+                <Typography
+                    sx={{
+                        fontSize: { xs: "2rem", md: "3rem" },
+                        fontWeight: "bold",
+                        fontStyle: "italic",
+                        maxWidth: {
+                            xs: "20%",
+                            sm: "30%",
+                            md: "50%",
+                        },
+                    }}
+                >
+                    اخر المستجدات
+                </Typography>
+                <Typography
+                    sx={{
+                        fontSize: { xs: "1.2rem", md: "1.5rem" },
+                        fontWeight: "bold",
+                        fontStyle: "italic",
+                        maxWidth: {
+                            xs: "40%",
+                            sm: "45%",
+                            md: "50%",
+                        },
+                        color: "black",
+                        '&:hover': {
+                            color: "#32C8ff",
+                            textDecoration: "underline",
+                        },
+                        cursor: "pointer",
+                        transition: "all 0.5s ease",
+                    }}
+                >
+                    انتقل لصفحة المستجدات
+                    <NearMeIcon
+                        sx={{
+                            fontSize: {
+                                xs: "medium",
+                                md: "large",
+                            },
+                            rotate: "270deg",
+                            marginRight: "10px",
+                        }}
+                        color="primary"
+                    />
+                </Typography>
+            </Box>
+            <Grid container spacing={2}>
+                {index === null ?
+                    updatesData.map((update) =>
+                        <Grid key={update.id} size={{ xs: 12, sm: 12, md: 6 , lg: 4 }} alignItems='center'>
+                            {UpdateCard(update)}
+                        </Grid>) : <Grid key={updatesData[index].id} size={{ xs: 12, sm: 12, md: 4 }} alignItems='center'>
+                        {UpdateCard(updatesData[index], increament, decrement, index)}
+                    </Grid>}
+            </Grid>
+        </Container>
+    );
 }
 
-function UpdateCard(update) {
+function UpdateCard(update, increament = null, decrement = null, index = null) {
+
     return (
-        <div id="update-card" key={update.id}>
-            <div id="image-container">
-                <img src={update.image} alt={update.title} />
-            </div>
-            <p><strong>{update.subtitle}</strong> | <small>{update.date}</small></p>
-            <h3>{update.title}</h3>
-            <p>{update.description}</p>
-        </div>
-    )
+        <Box id="update-card" key={update.id}>
+            <Box id="image-container" sx={{ overflow: "hidden", borderRadius: "5px" , marginBottom: "2%" }}>
+                <Avatar sx={{
+                    borderRadius: "5px", width: "100%", height: "100%", '&:hover': {
+                        transform: "scale(1.1)",
+                        transition: "transform 0.5s ease-in-out",
+                    },
+                    objectFit: "fill",
+                }} src={update.image} alt={update.title} />
+            </Box>
+            <Typography variant="p" sx={{ marginBlock: "4%" }}>
+                <Typography color="#32C8ff" fontWeight="700" variant="strong">{update.subtitle}</Typography> | <Typography fontWeight="500" variant="small">{update.date}</Typography>
+            </Typography>
+            <Typography variant="h3" fontSize={"1.5rem"} fontWeight={'bold'} sx={{ marginBlock: "1%" }}>{update.title}</Typography>
+            <Typography variant="p" fontWeight='500' sx={{ marginBlock: "1%" }}>{update.description}</Typography>
+            <Grid container spacing={2} alignItems={'center'} sx={{
+                display: {
+                    md: "none",
+                }, marginBlock: "3%"
+            }}>
+                <Grid size={10}>
+                    <Box sx={{ height: '2px', backgroundColor: "gray", width: "100%" }}></Box>
+                </Grid>
+                <Grid size={1}>
+                    <ArrowForwardIcon sx={{ fontSize: "large", color: index > 0 ? "#32C8ff" : "gray", cursor: "pointer" }} onClick={() => decrement()} />
+                </Grid>
+                <Grid size={1}>
+                    <ArrowBackIcon sx={{ fontSize: "large", color: index < updatesData.length - 1 ? "#32C8ff" : "gray", cursor: "pointer" }} onClick={() => increament()} />
+                </Grid>
+            </Grid>
+        </Box>
+    );
 }

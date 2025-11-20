@@ -8,9 +8,9 @@ export default function Welcome() {
                 <button>اطلع على المزيد</button>
             </div>
 
-            <div id="left">
+            {/* <div id="left">
                 <iframe src="home/welcome/welcome_video.mp4" />
-            </div>
+            </div> */}
         </div>
     )
 }
