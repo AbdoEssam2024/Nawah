@@ -27,16 +27,16 @@ export const navItems = [
 ]
 
 export const languageData = [
-    { text: "العربية", click: () => console.log("arabic") },
-    { text: "الإنجليزية", click: () => console.log("english") }
+    { id:1, text: "العربية", click: () => console.log("arabic") },
+    { id:2, text: "الإنجليزية", click: () => console.log("english") }
 ]
 
 export const accountData = [
-    { text: "تسجيل الدخول", click: () => console.log("login") },
-    { text: "انشاء حساب", click: () => console.log("register") }
+    { id:1, text: "تسجيل الدخول", click: () => console.log("login") },
+    { id:2, text: "انشاء حساب", click: () => console.log("register") }
 ]
 
 export const socialData = [
-    { text: "فيسبوك", click: () => console.log("facebook") },
-    { text: "تيليجرام", click: () => console.log("telegram") }
+    { id:1, text: "فيسبوك", click: () => console.log("facebook") },
+    { id:2, text: "تيليجرام", click: () => console.log("telegram") }
 ]

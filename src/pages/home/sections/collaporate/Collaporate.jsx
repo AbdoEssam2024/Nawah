@@ -7,9 +7,9 @@ export default function Collaporate() {
                 <p>انضم إلى مشروع جديد مع كامل عناصر فريقك، أو اختبر حدود قدراتك منفردًا في تحدٍ مصمم <br /> ليكشف إمكاناتك الحقيقية.كل تجربة في نواة فرصة لتطبيق مهارتك بذكاء، أو قلب موازين الفكرة <br /> بفريقك، أو تحقيق إنجاز يليق بروحكم المشتركة.</p>
             </div>
 
-            <div id="left">
+            {/* <div id="left">
                 <iframe src="home/collaporate/collaporate_video.mp4" />
-            </div>
+            </div> */}
         </div>
     )
 }

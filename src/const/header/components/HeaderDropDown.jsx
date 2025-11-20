@@ -1,4 +1,4 @@
-import { Button, List, ListItemButton, Typography } from "@mui/material"
+import { Button, List, Box, Typography } from "@mui/material"
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
@@ -6,8 +6,16 @@ import PublicIcon from '@mui/icons-material/Public';
 
 export default function HeaderDropDown({ handleClick, open, title, dataList }) {
     return (
-        <Button sx={{ textAlign: 'center', padding: '0px', margin: "0px", color: "white" }} >
-            <Button id="nav-btn" onClick={handleClick} sx={{color: "white"}}>
+        <Box style={{ position: 'relative' }}>
+            <Button id="nav-btn" onClick={handleClick} sx={{
+                textAlign: 'center',
+                padding: '0px',
+                margin: '0px',
+                color: 'white',
+                '&:hover': {
+                    backgroundColor: 'transparent'
+                }
+            }}>
                 {!title ? <PublicIcon fontSize="medium" sx={{ color: "white" }} /> : <Typography sx={{ fontSize: "1rem", fontWeight: "600" }}>{title}</Typography>}
                 {!title ? null : open ? <ExpandLess /> : <ExpandMore />}
             </Button>
@@ -20,12 +28,12 @@ export default function HeaderDropDown({ handleClick, open, title, dataList }) {
                     gap: "10px"
                 }}>
                     {dataList.map((item) => (
-                        <Button id="nav-btn" sx={{ pl: 2, cursor: "pointer", textAlign: "start", color: "white" }} onClick={() => item.click()}>
+                        <Button key={item.id} id="nav-btn" sx={{ pl: 2, cursor: "pointer", textAlign: "start", color: "white" }} onClick={() => item.click()}>
                             <Typography sx={{ fontSize: "1rem", fontWeight: "600" }}>{item.text}</Typography>
                         </Button>
                     ))}
                 </List>
             </Collapse>
-        </Button>
+        </Box>
     )
 }
