@@ -1,14 +1,3 @@
-#landing {
-    background-image:url('home/landing/landing.gif');
-    background-size:cover;
-    background-position:center;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position: relative;
-}
-
 #cover-color {
     background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
@@ -24,16 +13,9 @@
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.797);
-    color: white;
     font-weight: 700;
     border-radius: 20px;
     cursor: pointer;
     transition: 0.5s;
     border: 1px solid white;
-}
-
-#landing-btn:hover {
-    background-color: white;
-    color: black;
 }

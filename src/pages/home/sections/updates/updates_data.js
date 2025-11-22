@@ -1,4 +1,4 @@
-const imagesPath = 'home/last_update/' ;
+const imagesPath = 'home/last_update/';
 export const updatesData = [
     {
         id: 1,

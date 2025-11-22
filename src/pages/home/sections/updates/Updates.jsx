@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { updatesData } from "./updates_data";
-import { Avatar, Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography, Grid, CardMedia, Skeleton } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -9,13 +9,22 @@ import "./updates.css";
 export default function Updates() {
     const [index, setIndex] = useState(null);
     useEffect(() => {
-        window.addEventListener('load', () => {
+        // Check immediately on mount
+        const checkScreenSize = () => {
             window.innerWidth < 900 ? setIndex(0) : setIndex(null);
-        })
-        window.addEventListener('resize', () => {
-            window.innerWidth < 900 ? setIndex(0) : setIndex(null);
-        })
-    }, [index]);
+        };
+
+        // Run on mount
+        checkScreenSize();
+
+        // Add resize listener
+        window.addEventListener('resize', checkScreenSize);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', checkScreenSize);
+        };
+    }, []);
 
     function increament() {
         if (index < updatesData.length - 1) setIndex(index + 1);
@@ -76,7 +85,7 @@ export default function Updates() {
             <Grid container spacing={2}>
                 {index === null ?
                     updatesData.map((update) =>
-                        <Grid key={update.id} size={{ xs: 12, sm: 12, md: 6 , lg: 4 }} alignItems='center'>
+                        <Grid key={update.id} size={{ xs: 12, sm: 12, md: 6, lg: 4 }} alignItems='center'>
                             {UpdateCard(update)}
                         </Grid>) : <Grid key={updatesData[index].id} size={{ xs: 12, sm: 12, md: 4 }} alignItems='center'>
                         {UpdateCard(updatesData[index], increament, decrement, index)}
@@ -88,16 +97,26 @@ export default function Updates() {
 
 function UpdateCard(update, increament = null, decrement = null, index = null) {
 
+    const UpdateImage = memo(({ src, title }) => <CardMedia
+
+        component={'img'}
+        loading="lazy"
+        decoding="async"
+        sx={{
+            borderRadius: "5px", width: "100%", height: "100%", '&:hover': {
+                transform: "scale(1.1)",
+                transition: "transform 0.5s ease-in-out",
+            },
+            objectFit: "fill",
+        }} src={src} alt={title} />)
+
     return (
         <Box id="update-card" key={update.id}>
-            <Box id="image-container" sx={{ overflow: "hidden", borderRadius: "5px" , marginBottom: "2%" }}>
-                <Avatar sx={{
-                    borderRadius: "5px", width: "100%", height: "100%", '&:hover': {
-                        transform: "scale(1.1)",
-                        transition: "transform 0.5s ease-in-out",
-                    },
-                    objectFit: "fill",
-                }} src={update.image} alt={update.title} />
+            <Box id="image-container" sx={{ overflow: "hidden", borderRadius: "5px", marginBottom: "2%" }}>
+                {
+                    update.image ? <UpdateImage src={update.image} title={update.title} />
+                        : <Skeleton variant="rectangular" sx={{ borderRadius: "5px", color: "gray" }} width={'100%'} height={300} />
+                }
             </Box>
             <Typography variant="p" sx={{ marginBlock: "4%" }}>
                 <Typography color="#32C8ff" fontWeight="700" variant="strong">{update.subtitle}</Typography> | <Typography fontWeight="500" variant="small">{update.date}</Typography>
@@ -107,7 +126,7 @@ function UpdateCard(update, increament = null, decrement = null, index = null) {
             <Grid container spacing={2} alignItems={'center'} sx={{
                 display: {
                     md: "none",
-                }, marginBlock: "3%"
+                }, marginBlock: "4%"
             }}>
                 <Grid size={10}>
                     <Box sx={{ height: '2px', backgroundColor: "gray", width: "100%" }}></Box>
