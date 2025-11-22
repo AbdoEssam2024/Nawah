@@ -30,12 +30,7 @@ export default function Header() {
     };
 
     return (
-        <Box id="header-div" sx={{
-            // height: {
-            //     xs: "12dvh",
-            //     lg: "5dvh"
-            // }
-        }}>
+        <Box id="header-div">
             <AppBar position="fixed" sx={{ background: "black" }}>
                 <Toolbar variant="dense" sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     {/*=== Logo ===*/}

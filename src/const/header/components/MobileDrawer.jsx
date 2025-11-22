@@ -10,6 +10,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import CloseIcon from '@mui/icons-material/Close';
 import ReorderOutlinedIcon from '@mui/icons-material/ReorderOutlined';
+import { Link } from "react-router-dom"
 import { Drawer } from "@mui/material"
 
 export default function MobileDrawer({ children }) {
@@ -22,35 +23,43 @@ export default function MobileDrawer({ children }) {
     const listdata = [
         {
             text: "نظرة عامة على المكان",
-            icon: <RemoveRedEyeOutlinedIcon />
+            icon: <RemoveRedEyeOutlinedIcon />,
+            path: "/overview"
         },
         {
             text: "الأخبار",
-            icon: <NewspaperOutlinedIcon />
+            icon: <NewspaperOutlinedIcon />,
+            path: "/news"
         },
         {
             text: "تخصصات",
-            icon: <StarsOutlinedIcon />
+            icon: <StarsOutlinedIcon />,
+            path: "/specialities"
         },
         {
             text: "اعثر على تخصصك",
-            icon: <ContentPasteSearchOutlinedIcon />
+            icon: <ContentPasteSearchOutlinedIcon />,
+            path: "/find-speciality"
         },
         {
             text: "الدعم",
-            icon: <ContactSupportOutlinedIcon />
+            icon: <ContactSupportOutlinedIcon />,
+            path: "/support"
         },
         {
             text: "اجتماعى",
-            icon: <Diversity2OutlinedIcon />
+            icon: <Diversity2OutlinedIcon />,
+            path: '/social'
         },
         {
             text: "تسجيل الدخول",
-            icon: <LoginIcon />
+            icon: <LoginIcon />,
+            path: '/login'
         },
         {
             text: "انشاء حساب",
-            icon: <AppRegistrationIcon />
+            icon: <AppRegistrationIcon />,
+            path: '/register'
         }
     ]
 
@@ -63,10 +72,12 @@ export default function MobileDrawer({ children }) {
         }} onClick={toggleDrawer(false)}>
             <List>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    <Box sx={{ display: "flex", alignItems: "center", gap: "5px", padding: "10px" }}>
-                        <Typography>Nawah <br /> Project</Typography>
-                        <Avatar src="logo.png" alt="Nawah Logo" sx={{ width: "50px", height: "50px" }} />
-                    </Box>
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: "5px", padding: "10px", color: "white" }}>
+                            <Typography>Nawah <br /> Project</Typography>
+                            <Avatar src="logo.png" alt="Nawah Logo" sx={{ width: "50px", height: "50px" }} />
+                        </Box>
+                    </Link>
                     <Box sx={{ display: "flex", alignItems: "center", gap: "5px", padding: "3px", background: "#e9dedeff", borderRadius: "50%", border: "1px solid #f05858ff" }}>
                         <CloseIcon onClick={toggleDrawer(false)} sx={{ color: "#f05858ff" }} fontSize="small" />
                     </Box>
@@ -74,12 +85,14 @@ export default function MobileDrawer({ children }) {
                 <Divider variant="fullWidth" sx={{ maxWidth: "90%", height: "1px", backgroundColor: "white", marginInline: "auto" }} />
                 {listdata.map((item) => (
                     <ListItem key={item.text} style={{ paddingInline: "5px", cursor: "pointer" }}>
-                        <ListItemButton>
-                            <ListItemText primary={item.text} sx={{ textAlign: "start" }} />
-                            <ListItemIcon sx={{ color: "white" }}>
-                                {item.icon}
-                            </ListItemIcon>
-                        </ListItemButton>
+                        <Link to={item.path} style={{ textDecoration: "none", width: "100%" }} >
+                            <ListItemButton sx={{ color: "white" }}>
+                                <ListItemText primary={item.text} sx={{ textAlign: "start" }} />
+                                <ListItemIcon sx={{ color: "white", justifyContent: "end" }}>
+                                    {item.icon}
+                                </ListItemIcon>
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                 ))}
             </List>
